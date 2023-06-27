@@ -10,6 +10,7 @@ const CustomerInquiries = new mongoose.Schema(
     address: String,
     occupation: String,
     message: String,
+    status: String,
   },
   {
     collection: "Inquiries",

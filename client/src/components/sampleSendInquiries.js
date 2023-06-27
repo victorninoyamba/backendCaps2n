@@ -9,6 +9,7 @@ export default function SampleSendInquiries() {
   const [address, setAddress] = useState("");
   const [occupation, setOccupation] = useState("");
   const [message, setMessage] = useState("");
+  const [status, setStatus] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +22,8 @@ export default function SampleSendInquiries() {
       email,
       address,
       occupation,
-      message
+      message,
+      status
     );
     fetch("http://localhost:5000/sendinquiry", {
       method: "POST",
@@ -40,6 +42,7 @@ export default function SampleSendInquiries() {
         address,
         occupation,
         message,
+        status,
       }),
     })
       .then((res) => res.json())
@@ -135,6 +138,16 @@ export default function SampleSendInquiries() {
                 className="form-control"
                 placeholder="Enter Message"
                 onChange={(e) => setMessage(e.target.value)}
+              />
+            </div>
+            <div className="mb-3">
+              <label>Status</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Status"
+                value={"Pending"}
+                onChange={(e) => setStatus(e.target.value)}
               />
             </div>
 

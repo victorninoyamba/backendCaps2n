@@ -1,6 +1,8 @@
 import React, { Component, useEffect, useState } from "react";
 import { useRef } from "react";
 import AdminHome from "./adminHome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function Inquiries({ allInquiries }) {
   //setting state
@@ -27,9 +29,34 @@ export default function Inquiries({ allInquiries }) {
       });
   };
 
+  //deleting a inquiries
+
+  const deleteInquiry = (_id) => {
+    if (window.confirm(`Are you sure you want to delete this inquiry?`)) {
+      fetch("http://localhost:5000/deleteInquiry", {
+        method: "POST",
+        crossDomain: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          inquiryid: _id,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          alert(data.data);
+          getAllInquiries();
+        });
+    } else {
+    }
+  };
+
   return (
     <>
-      <AdminHome />
+      {/* <AdminHome /> */}
 
       <div className="container shadow-md sm:rounded-lg">
         <table className="text-sm text-left text-gray-500 dark:text-gray-400">
@@ -53,6 +80,12 @@ export default function Inquiries({ allInquiries }) {
               <th scope="col" className="px-6 py-3">
                 Message
               </th>
+              <th scope="col" className="px-6 py-3">
+                Status
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Delete
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -70,6 +103,13 @@ export default function Inquiries({ allInquiries }) {
                 <td className="px-6 py-4">{data.address}</td>
                 <td className="px-6 py-4">{data.occupation}</td>
                 <td className="px-6 py-4 overflow-auto">{data.message}</td>
+                <td className="px-6 py-4 overflow-auto">{data.status}</td>
+                <td className="px-6 py-4 overflow-auto text-center">
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    onClick={() => deleteInquiry(data._id)}
+                  />
+                </td>
               </tr>
             ))}
           </tbody>
