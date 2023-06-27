@@ -9,11 +9,20 @@ export default function SampleSendInquiries() {
   const [address, setAddress] = useState("");
   const [occupation, setOccupation] = useState("");
   const [message, setMessage] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("pending");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    if (
+      fname &&
+      lname &&
+      contact &&
+      email &&
+      address &&
+      occupation &&
+      message &&
+      status
+    ) {
     console.log(
       fname,
       mname,
@@ -54,7 +63,11 @@ export default function SampleSendInquiries() {
           alert("Something went wrong");
         }
       });
+    } else {
+      alert("Please fill in all fields");
+    }
   };
+  
 
   return (
     <>
@@ -142,13 +155,17 @@ export default function SampleSendInquiries() {
             </div>
             <div className="mb-3">
               <label>Status</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Status"
-                value={Date.now}
-                onChange={(e) => setStatus(e.target.value)}
-              />
+              <div className="form-check">
+                <input
+                  type="radio"
+                  className="form-check-input"
+                  name="status"
+                  value="pending"
+                  checked={status === "pending"}
+                  onChange={(e) => setStatus(e.target.value)}
+                />
+                <label className="form-check-label">Pending</label>
+              </div>
             </div>
 
             <div className="d-grid">
