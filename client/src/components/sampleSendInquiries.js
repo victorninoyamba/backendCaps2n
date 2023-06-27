@@ -146,7 +146,7 @@ export default function SampleSendInquiries() {
                 type="text"
                 className="form-control"
                 placeholder="Status"
-                value={"Pending"}
+                value={Date.now}
                 onChange={(e) => setStatus(e.target.value)}
               />
             </div>

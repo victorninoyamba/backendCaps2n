@@ -8,8 +8,10 @@ const bcrypt = require("bcryptjs");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 
+const port = 5000;
 const jwt = require("jsonwebtoken");
 var nodemailer = require("nodemailer");
+const { prototype } = require("nodemailer/lib/dkim");
 
 const JWT_SECRET =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.Zwow5OBogdrUeBtgR9Qr_Rk7cob5cU_RPsAUw0jDQ4o";
@@ -27,8 +29,8 @@ mongoose
   })
   .catch((e) => console.log(e));
 
-app.listen(5000, () => {
-  console.log("Server Started");
+app.listen(port, () => {
+  console.log("Server Started at Port: " + port);
 });
 
 //Create Database Tables=================================================================================
