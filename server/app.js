@@ -323,6 +323,7 @@ app.post("/addproperty", async (req, res) => {
   const {
     propertytype,
     sellingprice,
+    location,
     description,
     bedrooms,
     bathrooms,
@@ -342,6 +343,7 @@ app.post("/addproperty", async (req, res) => {
     await Property.create({
       propertytype,
       sellingprice,
+      location,
       description,
       bedrooms,
       bathrooms,

@@ -4,6 +4,7 @@ const PropertyList = new mongoose.Schema(
   {
     propertytype: String,
     sellingprice: String,
+    location: String,
     description: String,
     bedrooms: Number,
     bathrooms: Number,
