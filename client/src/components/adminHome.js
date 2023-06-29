@@ -35,7 +35,7 @@ export default function AdminHome({ userData }) {
   };
 
   const addPropertiesPage = () => {
-    window.location.href = "./addproperties";
+    window.location.href = "./addproperty";
   };
   const updatePropertyPage = () => {
     window.location.href = "./updateproperty";

@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import bg from "../assets/images/loginbg.jpg";
 
 export const UpdateProperty = () => {
+  //search property=====================================================================
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const getPropertyById = () => {
@@ -13,11 +15,111 @@ export const UpdateProperty = () => {
         setData(data.data);
       });
   };
+  useEffect(() => {
+    getPropertyById();
+  }, [searchTerm]);
+  //end of search property=====================================================================
+
+  //update property===========================================================================
+  const [propertytype, setPropertytype] = useState("Ready For Occupancy");
+  const [sellingprice, setSellingprice] = useState("");
+  const [description, setDescription] = useState("");
+  const [bedrooms, setBedrooms] = useState("");
+  const [bathrooms, setBathrooms] = useState("");
+  const [carparks, setCarparks] = useState("");
+  const [floorarea, setFloorarea] = useState("");
+  const [homefeatures, setHomefeatures] = useState("");
+  const [neighborhoodfeatures, setNeighborhoodfeatures] = useState("");
+  const [foodhubs, setFoodhubs] = useState("");
+  const [grocery, setGrocery] = useState("");
+  const [gym, setGym] = useState("");
+  const [school, setSchool] = useState("");
+  const [store, setStore] = useState("");
+  const [hospital, setHospital] = useState("");
+  const [neighborhoodvicinity, setNeighborhoodvicinity] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      propertytype ||
+      sellingprice ||
+      description ||
+      bedrooms ||
+      bathrooms ||
+      carparks ||
+      floorarea ||
+      homefeatures ||
+      neighborhoodfeatures ||
+      foodhubs ||
+      grocery ||
+      gym ||
+      school ||
+      store ||
+      hospital ||
+      neighborhoodvicinity
+    ) {
+      console.log(
+        propertytype,
+        sellingprice,
+        description,
+        bedrooms,
+        bathrooms,
+        carparks,
+        floorarea,
+        homefeatures,
+        neighborhoodfeatures,
+        foodhubs,
+        grocery,
+        gym,
+        school,
+        store,
+        hospital,
+        neighborhoodvicinity
+      );
+      fetch("http://localhost:5000/updateproperty", {
+        method: "PATCH",
+        crossDomain: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          propertytype,
+          sellingprice,
+          description,
+          bedrooms,
+          bathrooms,
+          carparks,
+          floorarea,
+          homefeatures,
+          neighborhoodfeatures,
+          foodhubs,
+          grocery,
+          gym,
+          store,
+          hospital,
+          neighborhoodvicinity,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data, "propertyAdded");
+          if (data.status == "ok") {
+            alert("Property Updated!");
+            window.location.reload();
+          } else {
+            alert("Something went wrong");
+          }
+        });
+    } else {
+      alert("Please fill in all fields");
+    }
+  };
 
   return (
     <>
       {/* <AdminHome /> */}
-
       <div className=" flex justify-center pt-5 pb-5  ">
         <div className="w-1/2  p-6 bg-white border border-gold rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <h1 className="flex justify-center text-lg">
@@ -34,7 +136,6 @@ export const UpdateProperty = () => {
               type="text"
               id="first_name"
               className="ml-6 mr-6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               required
             />
@@ -48,8 +149,7 @@ export const UpdateProperty = () => {
           </div>
           {data.map((property, index) => (
             <div key={index}>
-              <form className="flex-wrap w-full">
-                {/* <form onSubmit={handleSubmit} className="flex-wrap w-full"> */}
+              <form onSubmit={handleSubmit} className="flex-wrap w-full">
                 <div className="grid gap-6 mb-6 md:grid-cols-2"></div>
 
                 <label
@@ -59,11 +159,11 @@ export const UpdateProperty = () => {
                   Property Type
                 </label>
                 <select
-                  defaultValue=""
+                  defaultValue={property.propertytype}
                   id="countries"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  {/* onChange={(e) => setPropertytype(e.target.value)} */}
+                  onChange={(e) => setPropertytype(e.target.value)}
                   <option disabled>Choose Type</option>
                   {/* <option value="PS">Preselling</option> */}
                   <option value="RFO">Ready For Occupancy</option>
@@ -79,9 +179,9 @@ export const UpdateProperty = () => {
                   <input
                     type="text"
                     id="first_name"
-                    value={property.sellingprice}
+                    defaultValue={property.sellingprice}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    // onChange={(e) => setSellingprice(e.target.value)}
+                    onChange={(e) => setSellingprice(e.target.value)}
                     required
                   />
                 </div>
@@ -95,9 +195,9 @@ export const UpdateProperty = () => {
                   <input
                     type="text"
                     id="last_name"
-                    value={property.description}
+                    defaultValue={property.description}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    // onChange={(e) => setDescription(e.target.value)}
+                    onChange={(e) => setDescription(e.target.value)}
                     required
                   />
                 </div>
@@ -111,9 +211,9 @@ export const UpdateProperty = () => {
                   <input
                     type="text"
                     id="last_name"
-                    value={property.bedrooms}
+                    defaultValue={property.bedrooms}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    // onChange={(e) => setBedrooms(e.target.value)}
+                    onChange={(e) => setBedrooms(e.target.value)}
                     required
                   />
                 </div>
@@ -127,9 +227,9 @@ export const UpdateProperty = () => {
                   <input
                     type="text"
                     id="last_name"
-                    value={property.bathrooms}
+                    defaultValue={property.bathrooms}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    // onChange={(e) => setBathrooms(e.target.value)}
+                    onChange={(e) => setBathrooms(e.target.value)}
                     required
                   />
                 </div>
@@ -143,9 +243,9 @@ export const UpdateProperty = () => {
                   <input
                     type="text"
                     id="company"
-                    value={property.carparks}
+                    defaultValue={property.carparks}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    // onChange={(e) => setCarparks(e.target.value)}
+                    onChange={(e) => setCarparks(e.target.value)}
                     required
                   />
                 </div>
@@ -159,9 +259,9 @@ export const UpdateProperty = () => {
                   <input
                     type="text"
                     id="company"
-                    value={property.floorarea}
+                    defaultValue={property.floorarea}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    // onChange={(e) => setFloorarea(e.target.value)}
+                    onChange={(e) => setFloorarea(e.target.value)}
                     required
                   />
                 </div>
@@ -173,12 +273,12 @@ export const UpdateProperty = () => {
                     Home Features
                   </label>
                   <textarea
-                    value={property.homefeatures}
+                    defaultValue={property.homefeatures}
                     id="message"
                     rows="4"
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder=" Please separate each features using a comma"
-                    // onChange={(e) => setHomefeatures(e.target.value)}
+                    onChange={(e) => setHomefeatures(e.target.value)}
                   ></textarea>
                 </div>
                 <div>
@@ -189,12 +289,12 @@ export const UpdateProperty = () => {
                     Neighborhood Features
                   </label>
                   <textarea
-                    value={property.neighborhoodfeatures}
+                    defaultValue={property.neighborhoodfeatures}
                     id="message"
                     rows="4"
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder=" Please separate each features using a comma"
-                    // onChange={(e) => setNeighborhoodfeatures(e.target.value)}
+                    onChange={(e) => setNeighborhoodfeatures(e.target.value)}
                   ></textarea>
                 </div>
                 <h2 className="flex pt-3 text-sm ">Nearby Establishments</h2>
@@ -206,12 +306,12 @@ export const UpdateProperty = () => {
                     Food Hubs
                   </label>
                   <textarea
-                    value={property.foodhubs}
+                    defaultValue={property.foodhubs}
                     id="message"
                     rows="4"
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder=" Please separate each features using a comma"
-                    // onChange={(e) => setFoodhubs(e.target.value)}
+                    onChange={(e) => setFoodhubs(e.target.value)}
                   ></textarea>
                   <label
                     htmlFor="message"
@@ -220,12 +320,12 @@ export const UpdateProperty = () => {
                     Grocery
                   </label>
                   <textarea
-                    value={property.grocery}
+                    defaultValue={property.grocery}
                     id="message"
                     rows="4"
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder=" Please separate each features using a comma"
-                    // onChange={(e) => setGrocery(e.target.value)}
+                    onChange={(e) => setGrocery(e.target.value)}
                   ></textarea>
                   <label
                     htmlFor="message"
@@ -234,12 +334,12 @@ export const UpdateProperty = () => {
                     Gym
                   </label>
                   <textarea
-                    value={property.gym}
+                    defaultValue={property.gym}
                     id="message"
                     rows="4"
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder=" Please separate each features using a comma"
-                    // onChange={(e) => setGym(e.target.value)}
+                    onChange={(e) => setGym(e.target.value)}
                   ></textarea>
                   <label
                     htmlFor="message"
@@ -252,7 +352,7 @@ export const UpdateProperty = () => {
                     rows="4"
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder=" Please separate each features using a comma"
-                    // onChange={(e) => setSchool(e.target.value)}
+                    onChange={(e) => setSchool(e.target.value)}
                   ></textarea>
                   <label
                     htmlFor="message"
@@ -261,12 +361,12 @@ export const UpdateProperty = () => {
                     Mall/Store
                   </label>
                   <textarea
-                    value={property.store}
+                    defaultValue={property.store}
                     id="message"
                     rows="4"
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder=" Please separate each features using a comma"
-                    // onChange={(e) => setStore(e.target.value)}
+                    onChange={(e) => setStore(e.target.value)}
                   ></textarea>
 
                   <label
@@ -276,12 +376,12 @@ export const UpdateProperty = () => {
                     Hospital
                   </label>
                   <textarea
-                    value={property.hospital}
+                    defaultValue={property.hospital}
                     id="message"
                     rows="4"
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder=" Please separate each features using a comma"
-                    // onChange={(e) => setHospital(e.target.value)}
+                    onChange={(e) => setHospital(e.target.value)}
                   ></textarea>
                 </div>
                 <div>
@@ -292,12 +392,12 @@ export const UpdateProperty = () => {
                     Neighborhood Vicinity
                   </label>
                   <textarea
-                    value={property.neighborhoodvicinity}
+                    defaultValue={property.neighborhoodvicinity}
                     id="message"
                     rows="4"
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder=" Please separate each features using a comma"
-                    // onChange={(e) => setNeighborhoodvicinity(e.target.value)}
+                    onChange={(e) => setNeighborhoodvicinity(e.target.value)}
                   ></textarea>
                 </div>
 

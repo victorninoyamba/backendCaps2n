@@ -363,7 +363,7 @@ app.post("/addproperty", async (req, res) => {
   }
 });
 //search and update property
-app.get("/getProperty/", async (req, res) => {
+app.get("/getProperty/:id", async (req, res) => {
   try {
     const _id = req.params.id;
     const singleproperty = await Property.find({ _id: _id });
@@ -371,5 +371,49 @@ app.get("/getProperty/", async (req, res) => {
     res.send({ status: "ok", data: singleproperty });
   } catch (error) {
     console.log(error);
+  }
+});
+
+app.patch("/updateproperty", async (req, res) => {
+  const {
+    propertytype,
+    sellingprice,
+    description,
+    bedrooms,
+    bathrooms,
+    carparks,
+    floorarea,
+    homefeatures,
+    neighborhoodfeatures,
+    foodhubs,
+    grocery,
+    gym,
+    school,
+    store,
+    hospital,
+    neighborhoodvicinity,
+  } = req.body;
+  try {
+    await Property.updateOne({
+      propertytype,
+      sellingprice,
+      description,
+      bedrooms,
+      bathrooms,
+      carparks,
+      floorarea,
+      homefeatures,
+      neighborhoodfeatures,
+      foodhubs,
+      grocery,
+      gym,
+      school,
+      store,
+      hospital,
+      neighborhoodvicinity,
+    });
+    res.send({ status: "ok" });
+  } catch (error) {
+    res.send({ status: "error" });
   }
 });

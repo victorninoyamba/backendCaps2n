@@ -8,7 +8,6 @@ import SignUp from "./components/signup_component";
 import UserDetails from "./components/userDetails";
 import AdminHome from "./components/adminHome";
 import AddProperties from "./components/addProperties";
-import EditProperties from "./components/editProperties";
 import Inquiries from "./components/inquiries";
 import Users from "./components/user";
 import SendInquiries from "./components/sampleSendInquiries";
@@ -24,7 +23,7 @@ function App() {
           <Route
             exact
             path="/"
-            element={isLoggedIn == "true" ? <UserDetails /> : <Login />}
+            element={isLoggedIn === "true" ? <UserDetails /> : <Login />}
           />
           <Route path="/sign-in" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
