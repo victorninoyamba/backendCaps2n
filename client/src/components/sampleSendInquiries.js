@@ -23,26 +23,7 @@ export default function SampleSendInquiries() {
       message &&
       status
     ) {
-    console.log(
-      fname,
-      mname,
-      lname,
-      contact,
-      email,
-      address,
-      occupation,
-      message,
-      status
-    );
-    fetch("http://localhost:5000/sendinquiry", {
-      method: "POST",
-      crossDomain: true,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
+      console.log(
         fname,
         mname,
         lname,
@@ -51,23 +32,41 @@ export default function SampleSendInquiries() {
         address,
         occupation,
         message,
-        status,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data, "userRegister");
-        if (data.status == "ok") {
-          alert("Inquiry Sent!");
-        } else {
-          alert("Something went wrong");
-        }
-      });
+        status
+      );
+      fetch("http://localhost:5000/sendinquiry", {
+        method: "POST",
+        crossDomain: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          fname,
+          mname,
+          lname,
+          contact,
+          email,
+          address,
+          occupation,
+          message,
+          status,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data, "userRegister");
+          if (data.status == "ok") {
+            alert("Inquiry Sent!");
+          } else {
+            alert("Something went wrong");
+          }
+        });
     } else {
       alert("Please fill in all fields");
     }
   };
-  
 
   return (
     <>

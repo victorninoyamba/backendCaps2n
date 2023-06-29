@@ -12,6 +12,7 @@ import EditProperties from "./components/editProperties";
 import Inquiries from "./components/inquiries";
 import Users from "./components/user";
 import SendInquiries from "./components/sampleSendInquiries";
+import { UpdateProperty } from "./components/updateProperty";
 // import ImageUpload from "./components/imageUpload.";
 
 function App() {
@@ -23,17 +24,17 @@ function App() {
           <Route
             exact
             path="/"
-            element={isLoggedIn == "false" ? <UserDetails /> : <Login />}
+            element={isLoggedIn == "true" ? <UserDetails /> : <Login />}
           />
           <Route path="/sign-in" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/userDetails" element={<UserDetails />} />
           <Route path="/adminhome" element={<AdminHome />} />
-          <Route path="/addproperties" element={<AddProperties />} />
-          <Route path="/editproperties" element={<EditProperties />} />
           <Route path="/inquiries" element={<Inquiries />} />
           <Route path="/users" element={<Users />} />
           <Route path="/sendinquiry" element={<SendInquiries />} />
+          <Route path="/addproperty" element={<AddProperties />} />
+          <Route path="/updateproperty" element={<UpdateProperty />} />
         </Routes>
         {/* <ImageUpload/> */}
       </div>

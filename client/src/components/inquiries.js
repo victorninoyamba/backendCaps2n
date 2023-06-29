@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { useRef } from "react";
-import AdminHome from "./adminHome";
+// import AdminHome from "./adminHome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import bg from "../assets/images/loginbg.jpg";

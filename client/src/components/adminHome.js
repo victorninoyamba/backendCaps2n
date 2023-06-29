@@ -37,8 +37,8 @@ export default function AdminHome({ userData }) {
   const addPropertiesPage = () => {
     window.location.href = "./addproperties";
   };
-  const editPropertiesPage = () => {
-    window.location.href = "./editproperties";
+  const updatePropertyPage = () => {
+    window.location.href = "./updateproperty";
   };
   const inquiries = () => {
     window.location.href = "./inquiries";
@@ -165,7 +165,7 @@ export default function AdminHome({ userData }) {
             </li>
             <li>
               <a
-                onClick={editPropertiesPage}
+                onClick={updatePropertyPage}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <svg

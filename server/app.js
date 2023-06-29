@@ -37,10 +37,12 @@ app.listen(port, () => {
 require("./userDetails");
 require("./imageDetails");
 require("./inquiriesDetails");
+require("./propertyDetails");
 
 const User = mongoose.model("UserInfo");
 const Inquiries = mongoose.model("Inquiries");
 const Images = mongoose.model("ImageDetails");
+const Property = mongoose.model("Properties");
 
 //Query in User==================================================================
 app.post("/register", async (req, res) => {
@@ -313,4 +315,61 @@ app.get("/get-image", async (req, res) => {
       res.send({ status: "ok", data: data });
     });
   } catch (error) {}
+});
+
+//Query for Add Properties
+//add property
+app.post("/addproperty", async (req, res) => {
+  const {
+    propertytype,
+    sellingprice,
+    description,
+    bedrooms,
+    bathrooms,
+    carparks,
+    floorarea,
+    homefeatures,
+    neighborhoodfeatures,
+    foodhubs,
+    grocery,
+    gym,
+    school,
+    store,
+    hospital,
+    neighborhoodvicinity,
+  } = req.body;
+  try {
+    await Property.create({
+      propertytype,
+      sellingprice,
+      description,
+      bedrooms,
+      bathrooms,
+      carparks,
+      floorarea,
+      homefeatures,
+      neighborhoodfeatures,
+      foodhubs,
+      grocery,
+      gym,
+      school,
+      store,
+      hospital,
+      neighborhoodvicinity,
+    });
+    res.send({ status: "ok" });
+  } catch (error) {
+    res.send({ status: "error" });
+  }
+});
+//search and update property
+app.get("/getProperty/", async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const singleproperty = await Property.find({ _id: _id });
+    // Replace 'id' with the actual property name that represents the ID in your 'Inquiries' schema
+    res.send({ status: "ok", data: singleproperty });
+  } catch (error) {
+    console.log(error);
+  }
 });
