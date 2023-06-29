@@ -82,6 +82,7 @@ export default function AddProperties() {
           foodhubs,
           grocery,
           gym,
+          school,
           store,
           hospital,
           neighborhoodvicinity,
