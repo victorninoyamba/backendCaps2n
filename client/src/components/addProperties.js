@@ -19,27 +19,39 @@ export default function AddProperties() {
   const [store, setStore] = useState("");
   const [hospital, setHospital] = useState("");
   const [neighborhoodvicinity, setNeighborhoodvicinity] = useState("");
+  const [img1, setImg1] = useState("");
+  const [img2, setImg2] = useState("");
+  const [img3, setImg3] = useState("");
+  const [img4, setImg4] = useState("");
+  const [img5, setImg5] = useState("");
+  const [img6, setImg6] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
-      propertytype ||
-      sellingprice ||
-      location ||
-      description ||
-      bedrooms ||
-      bathrooms ||
-      carparks ||
-      floorarea ||
-      homefeatures ||
-      neighborhoodfeatures ||
-      foodhubs ||
-      grocery ||
-      gym ||
-      school ||
-      store ||
-      hospital ||
-      neighborhoodvicinity
+      propertytype &&
+      sellingprice &&
+      location &&
+      description &&
+      bedrooms &&
+      bathrooms &&
+      carparks &&
+      floorarea &&
+      homefeatures &&
+      neighborhoodfeatures &&
+      foodhubs &&
+      grocery &&
+      gym &&
+      school &&
+      store &&
+      hospital &&
+      neighborhoodvicinity &&
+      img1 &&
+      img2 &&
+      img3 &&
+      img4 &&
+      img5 &&
+      img6 
     ) {
       console.log(
         propertytype,
@@ -58,7 +70,13 @@ export default function AddProperties() {
         school,
         store,
         hospital,
-        neighborhoodvicinity
+        neighborhoodvicinity,
+        img1,
+        img2,
+        img3,
+        img4,
+        img5,
+        img6,
       );
       fetch("http://localhost:5000/addproperty", {
         method: "POST",
@@ -86,6 +104,12 @@ export default function AddProperties() {
           store,
           hospital,
           neighborhoodvicinity,
+          img1,
+          img2,
+          img3,
+          img4,
+          img5,
+          img6,
         }),
       })
         .then((res) => res.json())

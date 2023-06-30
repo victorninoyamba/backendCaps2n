@@ -338,6 +338,12 @@ app.post("/addproperty", async (req, res) => {
     store,
     hospital,
     neighborhoodvicinity,
+    img1,
+    img2,
+    img3,
+    img4,
+    img5,
+    img6,
   } = req.body;
   try {
     await Property.create({
@@ -358,6 +364,12 @@ app.post("/addproperty", async (req, res) => {
       store,
       hospital,
       neighborhoodvicinity,
+      img1,
+      img2,
+      img3,
+      img4,
+      img5,
+      img6,
     });
     res.send({ status: "ok" });
   } catch (error) {
