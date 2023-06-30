@@ -1,5 +1,7 @@
 import AdminHome from "./adminHome";
 import React, { useState } from "react";
+import { FileInput, Label } from 'flowbite-react';
+
 
 export default function AddProperties() {
   const [propertytype, setPropertytype] = useState("Ready For Occupancy");
@@ -396,7 +398,56 @@ export default function AddProperties() {
               <input id="dropzone-file" type="file" className="hidden" />
               </label>
           </div>  */}
-
+ <div
+      className="max-w-md"
+      id="fileUpload"
+    >
+      <div className="mb-2 block">
+        <Label
+          htmlFor="file"
+          value="Upload files"
+        />
+      </div>
+      <FileInput
+        helperText="Please choose image 1"
+        id="file"
+      />
+       <div className="mb-2 block">
+        
+      </div>
+      <FileInput
+        helperText="Please choose image 2"
+        id="file"
+      />
+       <div className="mb-2 block">
+       
+      </div>
+      <FileInput
+        helperText="Please choose image 3"
+        id="file"
+      />
+       <div className="mb-2 block">
+       
+      </div>
+      <FileInput
+        helperText="Please choose image 4"
+        id="file"
+      />
+       <div className="mb-2 block">
+        
+      </div>
+      <FileInput
+        helperText="Please choose image 5"
+        id="file"
+      />
+       <div className="mb-2 block">
+      
+      </div>
+      <FileInput
+        helperText="Please choose image 6"
+        id="file"
+      />
+    </div>
             <button
               type="submit"
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

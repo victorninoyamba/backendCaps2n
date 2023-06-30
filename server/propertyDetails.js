@@ -19,12 +19,12 @@ const PropertyList = new mongoose.Schema(
     store: String,
     hospital: String,
     neighborhoodvicinity: String,
-    img1: String,
-    img2: String,
-    img3: String,
-    img4: String,
-    img5: String,
-    img6: String,
+    img1: Buffer,
+    img2: Buffer,
+    img3: Buffer,
+    img4: Buffer,
+    img5: Buffer,
+    img6: Buffer,
     
 
   },
